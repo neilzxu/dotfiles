@@ -1,5 +1,3 @@
-
-
 " Ensure that we are in modern vim mode, not backwards-compatible vi mode
 set visualbell
 set nocompatible
@@ -18,10 +16,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
-"Plugin 'xolox/vim-easytags'
+Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vim-scripts/a.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -72,6 +71,22 @@ let g:airline_powerline_fonts=1
 let g:airline_detect_paste=1
 let g:airline#extensions#tabline#enabled=1
 
+" ----- xolox/vim-easytags settings -----
+" Where to look for tags files
+set tags=./tags;,~/.vimtags
+" Sensible defaults
+let g:easytags_events = ['BufReadPost', 'BufWritePost']
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 2
+let g:easytags_resolve_links = 1
+let g:easytags_suppress_ctags_warning = 1
+
+
+" ----- majutsushi/tagbar settings -----
+" Open/close tagbar with \b
+nmap <silent> <leader>b :TagbarToggle<CR>
+" Uncomment to open tagbar automatically whenever possible
+"autocmd BufEnter * nested :call tagbar#autoopen(0)
 " Indent as intelligently as vim knows how
 set smartindent
 
@@ -80,9 +95,9 @@ set showcmd
 set t_Co=16 "16 color
 
 set encoding=utf-8 "UTF-8 character encoding
-set tabstop=4  "4 space tabs
-set shiftwidth=4  "4 space shift
-set softtabstop=4  "Tab spaces in no hard tab mode
+set tabstop=2  "4 space tabs
+set shiftwidth=2  "4 space shift
+set softtabstop=2  "Tab spaces in no hard tab mode
 set expandtab  " Expand tabs into spaces
 set autoindent  "autoindent on new lines
 set showmatch  "Highlight matching braces
@@ -110,6 +125,7 @@ set ttyfast  "Speed up vim
 set nostartofline "Vertical movement preserves horizontal position
 set fileformat=unix
 set ff=mac
+set mouse=a "Enable mouse clicky stuff
 " Strip whitespace from end of lines when writing file
 autocmd BufWritePre * :%s/\s\+$//e
 

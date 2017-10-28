@@ -1,3 +1,6 @@
+PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+PATH="$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin"
+PATH="$PATH:/mnt/c/Program\ Files/Docker\ Toolbox"
 export PATH=$PATH
 
 # ----- guard against non-interactive logins ---------------------------------
@@ -34,19 +37,7 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias shell='ps -p $$ -o comm='
 
-alias cc='gcc -Wall -W -ansi -pedantic -O2 '
-alias valgrind-leak='valgrind --leak-check=full --show-reachable=yes'
-alias gccott='gcc -DDEBUG -g -Wall -Wextra -Werror -Wshadow -std=c99 -pedantic'
-
-alias clear='printf "\033c"'
-alias cmu='ssh -l ziyux unix.andrew.cmu.edu'
-alias sftpcmu='sftp ziyux@unix.andrew.cmu.edu'
-alias shark='ssh ziyux@baskingshark.ics.cs.cmu.edu'
-alias dir2unix='find . -type f -print0 | xargs -0 -n 1 -P 4 dos2unix'
-
-alias awb='ssh ziyux@awb.pc.cs.cmu.edu'
-
-
+source ~/.bash_aliases
 # ----- shell settings and completion -------------------------------------
 
 # Make .bash_history store more and not store duplicates
@@ -136,4 +127,3 @@ launch_twitch() {
 }
 
 alias stream=launch_twitch
-
