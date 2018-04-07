@@ -1,8 +1,3 @@
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-PATH="$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin"
-PATH="$PATH:/mnt/c/Program\ Files/Docker\ Toolbox"
-export PATH=$PATH
-
 # ----- guard against non-interactive logins ---------------------------------
 [ -z "$PS1" ] && return
 
@@ -12,14 +7,8 @@ then
     cd $(cat ~/.last_cd)
 fi
 
-logged_cd() {
-    cd "$@"
-    pwd > ~/.last_cd
-    ls
-}
 
 
-alias "cd"="logged_cd"
 # ----- convenient alias and function definitions ----------------------------
 
 # color support for ls and grep
@@ -37,7 +26,14 @@ alias cp='cp -v'
 alias mv='mv -v'
 alias shell='ps -p $$ -o comm='
 
-source ~/.bash_aliases
+
+logged_cd() {
+    \cd "$@"
+    pwd > ~/.last_cd
+    ls
+}
+alias cd="logged_cd"
+
 # ----- shell settings and completion -------------------------------------
 
 # Make .bash_history store more and not store duplicates
