@@ -1,6 +1,3 @@
-PATH="$HOME/bin:$HOME/.local/bin:$PATH"
-PATH="$PATH:/mnt/c/Program\ Files/Docker/Docker/resources/bin"
-PATH="$PATH:/mnt/c/Program\ Files/Docker\ Toolbox"
 export PATH=$PATH
 
 # ----- guard against non-interactive logins ---------------------------------
