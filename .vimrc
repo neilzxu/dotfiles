@@ -2,50 +2,58 @@
 set visualbell
 set nocompatible
 set backspace=indent,eol,start
-filetype off " required for Vundle plugin manager
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.local/share/nvim/plugged')
 
 " ----- Vim as a programmer's text editor -----------------------------
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
-Plugin 'majutsushi/tagbar'
-Plugin 'kien/ctrlp.vim'
-Plugin 'vim-scripts/a.vim'
-Plugin 'Valloric/YouCompleteMe'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'kien/ctrlp.vim'
+Plug 'vim-scripts/a.vim'
+Plug 'Valloric/YouCompleteMe'
+
+Plug 'vim-syntastic/syntastic'
+Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+Plug 'fholgado/minibufexpl.vim'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-jedi'
+
+Plug 'junegunn/fzf', {'build': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+"Plug 'w0rp/ale'
+Plug 'sbdchd/neoformat'
 
 " ----- Working with Git ----------------------------------------------
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
-Plugin 'Raimondi/delimitMate'
+Plug 'Raimondi/delimitMate'
 
 " ----- man pages, tmux -----------------------------------------------
-Plugin 'jez/vim-superman'
-Plugin 'christoomey/vim-tmux-navigator'
+Plug 'jez/vim-superman'
+Plug 'christoomey/vim-tmux-navigator'
 
 " ----- Syntax plugins ------------------------------------------------
-Plugin 'jez/vim-c0'
-Plugin 'jez/vim-ispc'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'rust-lang/rust.vim'
+Plug 'jez/vim-c0'
+Plug 'jez/vim-ispc'
+Plug 'kchmck/vim-coffee-script'
+Plug 'rust-lang/rust.vim'
 
 "Cosmetics for vim
-Bundle 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'iCyMind/NeoSolarized'
+Plug 'tomasr/molokai'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-call vundle#end()
+call plug#end()
 
 
 
@@ -59,9 +67,11 @@ filetype indent on
 filetype plugin on
 set hlsearch
 
+set termguicolors
+
 "set the colorscheme
-colorscheme solarized
-let g:solarized_termcolors=32
+colorscheme NeoSolarized
+"let g:solarized_termcolors=64
 set background=dark
 
 "vim-airline/vim-airline settings
@@ -81,6 +91,61 @@ let g:easytags_dynamic_files = 2
 let g:easytags_resolve_links = 1
 let g:easytags_suppress_ctags_warning = 1
 
+" ----- fzf -----
+
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+
+nnoremap <silent> ,t :Files<CR>
+nnoremap <silent> ,b :Buffers<cr>
+nnoremap <silent> ,r :Tags<cr>
+
+let g:fzf_tags_command = 'ctags -R'
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+" ----- formatting and linting -----
+
+let g:neoformat_enabled_python=['yapf']
+augroup fmt
+    autocmd!
+    autocmd BufWritePre *.py Neoformat
+""    autocmd BufWritePre *.py :call ale#Lint()
+  augroup END
+
+
+" -----syntastic---------
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pylint', 'mypy']
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'npm run lint --'
+
+
+"nerdtree settings
+autocmd vimenter * NERDTree
+
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
@@ -89,6 +154,9 @@ nmap <silent> <leader>b :TagbarToggle<CR>
 "autocmd BufEnter * nested :call tagbar#autoopen(0)
 " Indent as intelligently as vim knows how
 set smartindent
+
+
+autocmd BufNewFile,BufRead *.ts set syntax=javascript
 
 " Show multicharacter commands as they are being typed
 set showcmd
