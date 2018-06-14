@@ -112,9 +112,9 @@ set_prompt(){
     local last_command=$?
     PS1='\n\[\e[0;02m\]\d \D{%Y} :: \[\e[0;20m\]\t\[\e[0;33m\] |-> \w\n'
     if [[ $last_command != 0 ]]; then
-        PS1+="$txtred\]\u $ "
+        PS1+="\[$txtred\]\u $ "
     else
-        PS1+="$txtgrn\]\u $ "
+        PS1+="\[$txtgrn\]\u $ "
     fi
     PS1+='\[\e[0m\]'
 }
