@@ -114,9 +114,9 @@ set_prompt(){
     if [[ $last_command != 0 ]]; then
         PS1+="\[$txtred\]\u $ "
     else
-        PS1+="\[$txtgrn\]\u $ "
+        PS1+="\[$txtgrn\]\u $ (`basename \"$VIRTUAL_ENV\"`)"
     fi
-    PS1+='\[\e[0m\]'
+    PS1+='\[\e[0m\] '
 }
 PROMPT_COMMAND='set_prompt'
 
