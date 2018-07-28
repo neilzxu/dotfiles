@@ -12,13 +12,14 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-easytags'
 Plug 'majutsushi/tagbar'
-Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/a.vim'
 
 Plug 'vim-syntastic/syntastic'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'posva/vim-vue'
 Plug 'sekel/vim-vue-syntastic'
+Plug 'scrooloose/nerdcommenter'
+Plug 'leafgarland/typescript-vim'
 
 Plug 'fholgado/minibufexpl.vim'
 
@@ -33,7 +34,7 @@ Plug 'junegunn/fzf', {'build': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'eugen0329/vim-esearch'
 
-"Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 
 " ----- Working with Git ----------------------------------------------
@@ -63,7 +64,6 @@ Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 
-
 set ruler
 set number
 
@@ -73,6 +73,8 @@ filetype on
 filetype indent on
 filetype plugin on
 set hlsearch
+
+nmap ; :
 
 set termguicolors
 
@@ -146,7 +148,7 @@ augroup fmt
 augroup END
 
 " ---set typescript syntax highlighting/language association------
-autocmd BufNewFile,BufRead *.ts set filetype=javascript
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
 " -----syntastic---------
 
 set statusline+=%#warningmsg#
@@ -158,14 +160,16 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'npm run lint --'
-
+let g:syntastic_typescript_tslint_exe = 'meteor npm run lint --'
+let g:syntastic_typescript_checkers = ['tslint', 'meteor npm run lint --']
 "nerdtree settings
 "autocmd vimenter * NERDTree
 let g:python3_host_prog = '/home/neil/miniconda3/bin/python3'
 let g:deoplete#enable_at_startup = 1
+
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+
 set completeopt-=preview
 " ------- python language server ------
 " use TAB to manually autocomplete with deoplete
@@ -182,6 +186,10 @@ let g:LanguageClient_trace = 'verbose'
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+" -------- ale ----------
+let b:ale_fixers = {'typescript': ['prettier', 'tslint'], 'python': ['yapf']}
+
 
 " ----- majutsushi/tagbar settings -----
 " Open/close tagbar with \b
