@@ -110,15 +110,62 @@ txtrst='\e[0m'    # Text Reset
 
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
+# determine git branch name
+function parse_git_branch(){
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# determine mercurial branch name
+function parse_hg_branch(){
+  hg branch 2> /dev/null | awk '{print " (" $1 ")"}'
+}
+
+# Determine the branch/state information for this git repository.
+function set_git_branch() {
+  # Get the name of the branch.
+  branch=$(parse_git_branch)
+  # if not git then maybe mercurial
+  if [ "$branch" == "" ]
+  then
+    branch=$(parse_hg_branch)
+  fi
+
+  # Set the final branch string.
+  BRANCH="${bldpur}${branch}${txtrst} "
+}
+
+# Determine active Python virtualenv details.
+function set_virtualenv () {
+  if test -z "$VIRTUAL_ENV" ; then
+      PYTHON_VIRTUALENV=""
+  else
+      PYTHON_VIRTUALENV="${txtblu}[`basename \"$VIRTUAL_ENV\"`]${txtrst} "
+  fi
+}
+
+# Determine active Python conda environment details.
+function set_condaenv () {
+  if test -z "$CONDA_DEFAULT_ENV" ; then
+      PYTHON_CONDAENV=""
+  else
+      PYTHON_CONDAENV=" ${bldblu}[`basename \"$CONDA_DEFAULT_ENV\"`]${txtrst} "
+  fi
+}
 
 set_prompt(){
     local last_command=$?
-    PS1='\n\[\e[0;02m\]\d \D{%Y} :: \[\e[0;20m\]\t\[\e[0;33m\] |-> \w\n'
+    # set PYTHON_VIRTUALENV
+    set_virtualenv
+    # set PYTHON_CONDAENV
+    set_condaenv
+    # set BRANCH
+    set_git_branch
+    PS1="\n\[\e[0;02m\]\d \D{%Y} :: \[\e[0;20m\]\t\[\e[0;33m\] |-> \w${PYTHON_CONDAENV}${PYTHON_VIRTUALENV}${BRANCH} \n"
     if [[ $last_command != 0 ]]; then
         PS1+="\[$txtred\]\u $ "
     else
         PS1+="\[$txtgrn\]\u $ "
     fi
-    PS1+='\[\e[0m\] '
+    PS1+='\[\e[0m\]'
 }
 PROMPT_COMMAND='set_prompt'
