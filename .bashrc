@@ -1,14 +1,12 @@
-export PATH=$PATH
-
 # ----- guard against non-interactive logins ---------------------------------
 [ -z "$PS1" ] && return
 
 
+# Load last directory terminal was open
 if [ -e ~/.last_cd ]
 then
     cd $(cat ~/.last_cd)
 fi
-
 
 
 # ----- convenient alias and function definitions ----------------------------
@@ -51,8 +49,13 @@ shopt -s histappend
 shopt -s checkwinsize
 
 # Enable programmable completion features
-if [ -f /etc/bash_completion ]; then
+
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
 bind "set completion-ignore-case on"
@@ -114,14 +117,8 @@ set_prompt(){
     if [[ $last_command != 0 ]]; then
         PS1+="\[$txtred\]\u $ "
     else
-        PS1+="\[$txtgrn\]\u $ (`basename \"$VIRTUAL_ENV\"`)"
+        PS1+="\[$txtgrn\]\u $ "
     fi
     PS1+='\[\e[0m\] '
 }
 PROMPT_COMMAND='set_prompt'
-
-launch_twitch() {
-    streamlink "$1" "$2" --player "/cygdrive/c/Program\ Files/VideoLAN/VLC/vlc.exe"
-}
-
-alias stream=launch_twitch

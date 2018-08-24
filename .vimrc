@@ -16,8 +16,8 @@ Plug 'eugen0329/vim-esearch'
 
 
 " ----- Working with Git ----------------------------------------------
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+"Plug 'airblade/vim-gitgutter'
+"Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
 Plug 'Raimondi/delimitMate'
@@ -62,6 +62,8 @@ set hlsearch
 nmap ; :
 
 set termguicolors
+syntax on
+color dracula
 
 "vim-airline/vim-airline settings
 set guifont=Menlo_for_Powerline_Regular:h10
@@ -118,16 +120,20 @@ augroup fmt
     autocmd BufWritePre *.py :call ale#Lint()
 augroup END
 
+let g:python3_host_prog = '/home/neil/miniconda3/bin/python3'
+let g:deoplete#enable_at_startup = 1
+
+set completeopt-=preview
+
 " ---set typescript syntax highlighting/language association------
 autocmd BufNewFile,BufRead *.ts set filetype=typescript
 
 " ------ nerdtree settings ------
 "autocmd vimenter * NERDTree
 
-let g:python3_host_prog = '/home/neil/miniconda3/bin/python3'
-let g:deoplete#enable_at_startup = 1
+map <silent> ,n :NERDTreeToggle<CR>
 
-set completeopt-=preview
+
 " ------- python language server ------
 " use TAB to manually autocomplete with deoplete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -149,7 +155,7 @@ let b:ale_fixers = {'typescript': ['prettier', 'tslint'], 'python': ['yapf']}
 
 " Show multicharacter commands as they are being typed
 set showcmd
-set t_Co=16 "16 color
+"set t_Co=16 "16 color
 
 set encoding=utf-8 "UTF-8 character encoding
 set tabstop=2  "4 space tabs
