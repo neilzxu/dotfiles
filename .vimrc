@@ -16,8 +16,8 @@ Plug 'eugen0329/vim-esearch'
 
 
 " ----- Working with Git ----------------------------------------------
-"Plug 'airblade/vim-gitgutter'
-"Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
 " ----- Other text editing features -----------------------------------
 Plug 'Raimondi/delimitMate'
