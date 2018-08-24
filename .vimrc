@@ -61,7 +61,6 @@ set hlsearch
 
 nmap ; :
 
-set termguicolors
 syntax on
 color dracula
 
@@ -178,7 +177,6 @@ set wildmode=longest,list  "Better unix-like tab completion
 set cursorline  "Highlight current line
 set clipboard=unnamed  "Copy and paste from system clipboard
 set lazyredraw  "Don't redraw while running macros (faster)
-set autochdir  "Change directory to currently open file
 set nocompatible  "Kill vi-compatibility
 set wrap  "Visually wrap lines
 set linebreak  "Only wrap on 'good' characters for wrapping
