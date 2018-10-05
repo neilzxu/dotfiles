@@ -117,6 +117,8 @@ augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
     autocmd BufWritePre *.py :call ale#Lint()
+    autocmd BufWritePre *.rs undojoin | Neoformat
+    autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
 
 let g:python3_host_prog = '/home/neil/miniconda3/bin/python3'
@@ -139,18 +141,24 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 
 let g:LanguageClient_serverCommands = {
+      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
       \ 'python': ['pyls']
       \ }
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_trace = 'verbose'
+set signcolumn=yes
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " -------- ale ----------
-let b:ale_fixers = {'typescript': ['prettier', 'tslint'], 'python': ['yapf']}
+let b:ale_fixers = {
+    \ 'python': ['yapf', 'mypy'],
+    \ 'rust': ['rls', 'rustfmt'],
+    \ 'typescript': ['prettier', 'tslint'],
+    \ }
 
 " Show multicharacter commands as they are being typed
 set showcmd
