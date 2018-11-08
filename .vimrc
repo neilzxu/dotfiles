@@ -121,7 +121,7 @@ augroup fmt
     autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
 
-let g:python3_host_prog = '/home/neil/miniconda3/bin/python3'
+let g:python3_host_prog = system('printf $(which python3)')
 let g:deoplete#enable_at_startup = 1
 
 set completeopt-=preview
@@ -147,7 +147,7 @@ let g:LanguageClient_serverCommands = {
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_trace = 'verbose'
-set signcolumn=yes
+" set signcolumn=yes
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
