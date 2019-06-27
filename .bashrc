@@ -169,3 +169,10 @@ set_prompt(){
     PS1+='\[\e[0m\]'
 }
 PROMPT_COMMAND='set_prompt'
+
+
+# Install fzf
+if [ ! -d "$HOME/.fzf" ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    $HOME/.fzf/install
+fi
