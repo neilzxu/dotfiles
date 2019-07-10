@@ -168,4 +168,14 @@ set_prompt(){
     fi
     PS1+='\[\e[0m\]'
 }
+# Set 'ls' directory color to be brighter
+LS_COLORS=$LS_COLORS:'di=0;94:' ; export LS_COLORS
+
 PROMPT_COMMAND='set_prompt'
+
+
+# Install fzf
+if [ ! -d "$HOME/.fzf" ]; then
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    $HOME/.fzf/install
+fi
