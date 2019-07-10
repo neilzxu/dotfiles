@@ -3,6 +3,19 @@ set visualbell
 set nocompatible
 set backspace=indent,eol,start
 
+
+
+if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+elseif has('nvim') && empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -116,9 +129,9 @@ let g:neoformat_enabled_python=['yapf']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
-    autocmd BufWritePre *.py :call ale#Lint()
+    "autocmd BufWritePre *.py :call ale#Lint()
     autocmd BufWritePre *.rs undojoin | Neoformat
-    autocmd BufWritePre *.rs :call ale#Lint()
+    "autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
 
 let g:python3_host_prog = system('printf $(which python3)')
@@ -155,10 +168,11 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 " -------- ale ----------
 let b:ale_fixers = {
-    \ 'python': ['yapf', 'mypy'],
+    \ 'python': ['yapf'],
     \ 'rust': ['rls', 'rustfmt'],
     \ 'typescript': ['prettier', 'tslint'],
     \ }
+let b:ale_linters = ['mypy', 'pyls']
 
 " Show multicharacter commands as they are being typed
 set showcmd
