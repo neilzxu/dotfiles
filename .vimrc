@@ -101,7 +101,7 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 " ------ vim-esearch settings -------
 let g:esearch = {
-  \ 'adapter':    'git',
+  \ 'adapter':    'grep',
   \ 'backend':    'nvim',
   \ 'out':        'win',
   \ 'batch_size': 1000,
@@ -112,7 +112,7 @@ let g:esearch = {
 
 " ----- formatting and linting -----
 
-let g:neoformat_enabled_python=['yapf']
+let g:neoformat_enabled_python=['yapf', 'rustfmt']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
@@ -142,16 +142,19 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
-      \ 'python': ['pyls']
-      \ }
+      \ 'python': ['pyls'],
+\ }
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_trace = 'verbose'
 " set signcolumn=yes
 
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+nnoremap <silent> S :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " -------- ale ----------
 let b:ale_fixers = {
