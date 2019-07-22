@@ -177,6 +177,15 @@ let b:ale_fixers = {
     \ }
 let b:ale_linters = ['mypy', 'pyls']
 
+set t_ut=
+" Tmux redraw
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+endif
+
+
 " Show multicharacter commands as they are being typed
 set showcmd
 "set t_Co=16 "16 color
