@@ -32,8 +32,8 @@ Plug 'sbdchd/neoformat'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'zchee/deoplete-jedi'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'deoplete-plugins/deoplete-jedi'
   Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
@@ -116,7 +116,7 @@ let g:neoformat_enabled_python=['yapf', 'rustfmt']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
-    autocmd BufWritePre *.py :call ale#Lint()
+""    autocmd BufWritePre *.py :call ale#Lint()
     autocmd BufWritePre *.rs undojoin | Neoformat
     autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
@@ -147,6 +147,11 @@ let g:LanguageClient_serverCommands = {
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_trace = 'verbose'
+let $RUST_BACKTRACE = 1
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+
 " set signcolumn=yes
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -157,8 +162,8 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> S :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " -------- ale ----------
-let b:ale_fixers = {
-    \ 'python': ['yapf', 'mypy'],
+"" 'python': ['pyls', 'mypy'],
+let b:ale_linters = {
     \ 'rust': ['rls', 'rustfmt'],
     \ 'typescript': ['prettier', 'tslint'],
     \ }
