@@ -129,11 +129,7 @@ let g:neoformat_enabled_python=['yapf', 'rustfmt']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
-<<<<<<< HEAD
-    "autocmd BufWritePre *.py :call ale#Lint()
-=======
 ""    autocmd BufWritePre *.py :call ale#Lint()
->>>>>>> f46b3669b439b2b1549a85f926fb83c48f507e0c
     autocmd BufWritePre *.rs undojoin | Neoformat
     "autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
