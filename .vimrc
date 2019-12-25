@@ -5,6 +5,7 @@ set backspace=indent,eol,start
 
 
 
+
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -192,6 +193,8 @@ endif
 
 " Show multicharacter commands as they are being typed
 set showcmd
+" Allow for switching between buffers w/o saving
+set hidden
 "set t_Co=16 "16 color
 
 set encoding=utf-8 "UTF-8 character encoding
