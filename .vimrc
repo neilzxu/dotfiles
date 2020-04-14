@@ -3,6 +3,20 @@ set visualbell
 set nocompatible
 set backspace=indent,eol,start
 
+
+
+
+if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+elseif has('nvim') && empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'scrooloose/nerdtree'
@@ -34,8 +48,8 @@ Plug 'sbdchd/neoformat'
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'zchee/deoplete-jedi'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'deoplete-plugins/deoplete-jedi'
   Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
@@ -118,9 +132,9 @@ let g:neoformat_enabled_python=['yapf', 'rustfmt']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
-    autocmd BufWritePre *.py :call ale#Lint()
+""    autocmd BufWritePre *.py :call ale#Lint()
     autocmd BufWritePre *.rs undojoin | Neoformat
-    autocmd BufWritePre *.rs :call ale#Lint()
+    "autocmd BufWritePre *.rs :call ale#Lint()
 augroup END
 
 let g:python3_host_prog = system('printf $(which python3)')
@@ -149,6 +163,11 @@ let g:LanguageClient_serverCommands = {
 
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_trace = 'verbose'
+let $RUST_BACKTRACE = 1
+let g:LanguageClient_loggingLevel = 'INFO'
+let g:LanguageClient_loggingFile =  expand('~/.local/share/nvim/LanguageClient.log')
+let g:LanguageClient_serverStderr = expand('~/.local/share/nvim/LanguageServer.log')
+
 " set signcolumn=yes
 
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
@@ -159,14 +178,25 @@ nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 nnoremap <silent> S :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " -------- ale ----------
-let b:ale_fixers = {
-    \ 'python': ['yapf', 'mypy'],
+"" 'python': ['pyls', 'mypy'],
+let b:ale_linters = {
     \ 'rust': ['rls', 'rustfmt'],
     \ 'typescript': ['prettier', 'tslint'],
     \ }
 
+set t_ut=
+" Tmux redraw
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+endif
+
+
 " Show multicharacter commands as they are being typed
 set showcmd
+" Allow for switching between buffers w/o saving
+set hidden
 "set t_Co=16 "16 color
 
 set encoding=utf-8 "UTF-8 character encoding

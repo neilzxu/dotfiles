@@ -168,6 +168,9 @@ set_prompt(){
     fi
     PS1+='\[\e[0m\]'
 }
+# Set 'ls' directory color to be brighter
+LS_COLORS=$LS_COLORS:'di=0;94:' ; export LS_COLORS
+
 PROMPT_COMMAND='set_prompt'
 
 
@@ -175,4 +178,9 @@ PROMPT_COMMAND='set_prompt'
 if [ ! -d "$HOME/.fzf" ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     $HOME/.fzf/install
+fi
+
+# Update dotfiles
+if [[ -d $HOME/.dotfiles ]]; then
+    git --git-dir=$HOME/.dotfiles/.git pull origin master
 fi
