@@ -8,7 +8,6 @@ then
     cd $(cat ~/.last_cd)
 fi
 
-
 # ----- convenient alias and function definitions ----------------------------
 
 # color support for ls and grep
@@ -152,6 +151,9 @@ function set_condaenv () {
   fi
 }
 
+
+prompt_time="\e[0;20m"
+prompt_dow="\e[0;02m"
 set_prompt(){
     local last_command=$?
     # set PYTHON_VIRTUALENV
@@ -160,7 +162,7 @@ set_prompt(){
     set_condaenv
     # set BRANCH
     set_git_branch
-    PS1="\n\[\e[0;02m\]\d \D{%Y} :: \[\e[0;20m\]\t\[\e[0;33m\] |-> \w${PYTHON_CONDAENV}${PYTHON_VIRTUALENV}${BRANCH} \n"
+    PS1="\[${bakblk}\]\n\[${txtcyn}\]\[${prompt_dow}\]\d \D{%Y} :: \[${prompt_time}\]\t\[${txtylw}\] |-> \w${PYTHON_CONDAENV}${PYTHON_VIRTUALENV}${BRANCH} \n"
     if [[ $last_command != 0 ]]; then
         PS1+="\[$txtred\]\u $ "
     else
@@ -179,6 +181,22 @@ if [ ! -d "$HOME/.fzf" ]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     $HOME/.fzf/install
 fi
+
+# Find best finder for fzf
+
+SEARCH_BINS=("ag" "rg" "fd")
+SEARCH_CMDS=("ag -l --nocolor --hidden -g \"\""
+"rg --files --no-ignore --hidden --follow"
+"fd")
+
+for idx in $(seq 0 $((${#SEARCH_BINS[@]} - 1))); do
+    findbin=${SEARCH_BINS[$idx]}
+    if [[ $($findbin) ]]; then
+        export FZF_DEFAULT_COMMAND="${SEARCH_CMDS[$idx]}"
+        echo "Found alternative to find for fzf: ${FZF_DEFAULT_COMMAND}"
+        break
+    fi
+done
 
 # Update dotfiles
 if [[ -d $HOME/.dotfiles ]]; then
