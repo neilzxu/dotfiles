@@ -5,6 +5,7 @@ set backspace=indent,eol,start
 
 
 
+
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -22,6 +23,8 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/nerdcommenter'
+Plug 'vimwiki/vimwiki'
+
 
 Plug 'junegunn/fzf', {'build': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -193,6 +196,8 @@ endif
 
 " Show multicharacter commands as they are being typed
 set showcmd
+" Allow for switching between buffers w/o saving
+set hidden
 "set t_Co=16 "16 color
 
 set encoding=utf-8 "UTF-8 character encoding
