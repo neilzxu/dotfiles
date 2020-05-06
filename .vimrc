@@ -114,7 +114,7 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 " ------ vim-esearch settings -------
 let g:esearch = {
-  \ 'adapter':    'grep',
+  \ 'adapter':    'git',
   \ 'backend':    'nvim',
   \ 'out':        'win',
   \ 'batch_size': 1000,
@@ -156,6 +156,7 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
       \ 'python': ['pyls'],
+      \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery"}']
 \ }
 
 let g:LanguageClient_autoStart = 1
