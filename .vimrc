@@ -5,7 +5,6 @@ set backspace=indent,eol,start
 
 
 
-
 if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -19,11 +18,20 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+" ---- Varius navigation
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vimwiki/vimwiki'
+Plug 'Konfekt/FastFold'
+
+" ----- Latex
+Plug 'lervag/vimtex'
+
+" ---- pandoc
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
 Plug 'junegunn/fzf', {'build': './install --all' }
@@ -46,7 +54,7 @@ Plug 'sbdchd/neoformat'
 " ----- Python plugins --------------
 
 Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-
+Plug 'davidhalter/jedi'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'deoplete-plugins/deoplete-jedi'
@@ -128,7 +136,7 @@ let g:esearch = {
 
 " ----- formatting and linting -----
 
-let g:neoformat_enabled_python=['yapf', 'rustfmt']
+let g:neoformat_enabled_python=['yapf', 'docformatter']
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
@@ -162,6 +170,7 @@ let g:LanguageClient_serverCommands = {
 \ }
 
 let g:LanguageClient_autoStart = 1
+let g:LanguageClient_loadSettings = 0
 let g:LanguageClient_trace = 'verbose'
 let $RUST_BACKTRACE = 1
 let g:LanguageClient_loggingLevel = 'INFO'
@@ -183,6 +192,24 @@ let b:ale_linters = {
     \ 'rust': ['rls', 'rustfmt'],
     \ 'typescript': ['prettier', 'tslint'],
     \ }
+
+" -------- vim-tex --------------
+" integrate deoplete with vimtex
+call deoplete#custom#var('omni', 'input_patterns', {
+          \ 'tex': g:vimtex#re#deoplete
+          \})
+
+" Pandoc settings
+let g:pandoc#filetypes#pandoc_markdown = 1
+let g:pandoc#command#autoexec_on_writes = 1
+let g:pandoc#biblio#sources = 'c'
+let g:pandoc_command_autoexec_command = "Pandoc! html"
+" Deoplete integration
+call deoplete#custom#var('omni', 'input_patterns', {
+  \ 'pandoc': '@'
+  \})
+let g:pandoc#folding#fastfolds = 1
+autocmd FileType pandoc :lchdir %:p:h
 
 set t_ut=
 " Tmux redraw
