@@ -191,7 +191,7 @@ SEARCH_CMDS=("ag -l --nocolor --hidden -g \"\""
 
 for idx in $(seq 0 $((${#SEARCH_BINS[@]} - 1))); do
     findbin=${SEARCH_BINS[$idx]}
-    if [[ $($findbin) ]]; then
+    if [[ $(which $findbin) != "" ]]; then
         export FZF_DEFAULT_COMMAND="${SEARCH_CMDS[$idx]}"
         echo "Found alternative to find for fzf: ${FZF_DEFAULT_COMMAND}"
         break
