@@ -185,8 +185,8 @@ fi
 # Find best finder for fzf
 
 SEARCH_BINS=("ag" "rg" "fd")
-SEARCH_CMDS=("ag -l --nocolor --hidden -g \"\""
-"rg --files --no-ignore --hidden --follow"
+SEARCH_CMDS=("ag -l --nocolor -g \"\""
+"rg --files --follow"
 "fd")
 
 for idx in $(seq 0 $((${#SEARCH_BINS[@]} - 1))); do

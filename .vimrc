@@ -137,6 +137,7 @@ let g:esearch = {
 " ----- formatting and linting -----
 
 let g:neoformat_enabled_python=['yapf', 'docformatter']
+let g:neoformat_run_all_formatters = 1
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
