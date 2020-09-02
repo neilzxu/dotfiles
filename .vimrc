@@ -196,10 +196,9 @@ let b:ale_linters = {
     \ }
 
 " -------- vim-tex --------------
+
+let g:tex_flavor = 'plain'
 " integrate deoplete with vimtex
-call deoplete#custom#var('omni', 'input_patterns', {
-          \ 'tex': g:vimtex#re#deoplete
-          \})
 
 " Pandoc settings
 let g:pandoc#filetypes#pandoc_markdown = 1
@@ -207,9 +206,14 @@ let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#biblio#sources = 'c'
 let g:pandoc_command_autoexec_command = "Pandoc! html"
 " Deoplete integration
-call deoplete#custom#var('omni', 'input_patterns', {
-  \ 'pandoc': '@'
-  \})
+if has('nvim')
+    call deoplete#custom#var('omni', 'input_patterns', {
+              \ 'tex': g:vimtex#re#deoplete
+              \})
+    call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'pandoc': '@'
+      \})
+endif
 let g:pandoc#folding#fastfolds = 1
 autocmd FileType pandoc :lchdir %:p:h
 
