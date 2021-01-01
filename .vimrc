@@ -204,6 +204,7 @@ let g:pandoc#filetypes#pandoc_markdown = 1
 let g:pandoc#command#autoexec_on_writes = 1
 let g:pandoc#biblio#sources = 'c'
 let g:pandoc_command_autoexec_command = "Pandoc! html"
+let g:pandoc#biblio#use_bibtool = 1
 " Deoplete integration
 call deoplete#custom#var('omni', 'input_patterns', {
   \ 'pandoc': '@'
