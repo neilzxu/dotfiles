@@ -125,7 +125,7 @@ autocmd  FileType fzf set laststatus=0 noshowmode noruler
 
 " ------ vim-esearch settings -------
 let g:esearch = {
-  \ 'adapter':    'grep',
+  \ 'adapter':    'git',
   \ 'backend':    'nvim',
   \ 'out':        'win',
   \ 'batch_size': 1000,
@@ -137,6 +137,7 @@ let g:esearch = {
 " ----- formatting and linting -----
 
 let g:neoformat_enabled_python=['yapf', 'docformatter']
+let g:neoformat_run_all_formatters = 1
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
@@ -167,6 +168,7 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
       \ 'python': ['pyls'],
+      \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery"}']
 \ }
 
 let g:LanguageClient_autoStart = 1
@@ -194,10 +196,9 @@ let b:ale_linters = {
     \ }
 
 " -------- vim-tex --------------
+
+let g:tex_flavor = 'plain'
 " integrate deoplete with vimtex
-call deoplete#custom#var('omni', 'input_patterns', {
-          \ 'tex': g:vimtex#re#deoplete
-          \})
 
 " Pandoc settings
 let g:pandoc#filetypes#pandoc_markdown = 1
@@ -206,9 +207,14 @@ let g:pandoc#biblio#sources = 'c'
 let g:pandoc_command_autoexec_command = "Pandoc! html"
 let g:pandoc#biblio#use_bibtool = 1
 " Deoplete integration
-call deoplete#custom#var('omni', 'input_patterns', {
-  \ 'pandoc': '@'
-  \})
+if has('nvim')
+    call deoplete#custom#var('omni', 'input_patterns', {
+              \ 'tex': g:vimtex#re#deoplete
+              \})
+    call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'pandoc': '@'
+      \})
+endif
 let g:pandoc#folding#fastfolds = 1
 autocmd FileType pandoc :lchdir %:p:h
 
