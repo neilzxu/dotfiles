@@ -216,7 +216,9 @@ if has('nvim')
       \})
 endif
 let g:pandoc#folding#fastfolds = 1
-autocmd FileType pandoc :lchdir %:p:h
+" Automatically swithces working directory to directory of opened file for
+" opandoc files
+"" autocmd FileType pandoc :lchdir %:p:h
 
 set t_ut=
 " Tmux redraw
