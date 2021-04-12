@@ -1,0 +1,3 @@
+xrandr --newmode "3840x2160_40.00"  462.75  3840 4120 4536 5232  2160 2163 2168 2212 -hsync +vsync
+xrandr --addmode DP-1 3840x2160_40.00
+xrandr --output DP-1 3840x2160_40.00
