@@ -122,15 +122,23 @@ function parse_hg_branch(){
 # Determine the branch/state information for this git repository.
 function set_git_branch() {
   # Get the name of the branch.
-  branch=$(parse_git_branch)
+  branch=""
+  if [ -x "$(command -v git)" ]; then
+    branch=$(parse_git_branch)
+  fi
+
   # if not git then maybe mercurial
-  if [ "$branch" == "" ]
-  then
+  if [ -x "$(command -v hg)" ]; then
+    echo "hg is run"
     branch=$(parse_hg_branch)
   fi
 
   # Set the final branch string.
-  BRANCH="${bldpur}${branch}${txtrst} "
+  if [[ "$branch" != "" ]]; then
+    BRANCH="${bldpur}${branch}${txtrst} "
+  else
+    BRANCH=""
+  fi
 }
 
 # Determine active Python virtualenv details.
