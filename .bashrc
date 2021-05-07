@@ -138,7 +138,7 @@ function set_virtualenv () {
   if test -z "$VIRTUAL_ENV" ; then
       PYTHON_VIRTUALENV=""
   else
-      PYTHON_VIRTUALENV="${txtblu}[`basename \"$VIRTUAL_ENV\"`]${txtrst} "
+      PYTHON_VIRTUALENV="${txtcyn}[`basename \"$VIRTUAL_ENV\"`]${txtrst} "
   fi
 }
 
@@ -147,7 +147,7 @@ function set_condaenv () {
   if test -z "$CONDA_DEFAULT_ENV" ; then
       PYTHON_CONDAENV=""
   else
-      PYTHON_CONDAENV=" ${bldblu}[`basename \"$CONDA_DEFAULT_ENV\"`]${txtrst} "
+      PYTHON_CONDAENV=" ${txtcyn}[`basename \"$CONDA_DEFAULT_ENV\"`]${txtrst} "
   fi
 }
 
