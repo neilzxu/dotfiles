@@ -129,7 +129,6 @@ function set_git_branch() {
 
   # if not git then maybe mercurial
   if [ -x "$(command -v hg)" ]; then
-    echo "hg is run"
     branch=$(parse_hg_branch)
   fi
 
