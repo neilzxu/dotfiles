@@ -182,12 +182,17 @@ LS_COLORS=$LS_COLORS:'di=0;94:' ; export LS_COLORS
 
 PROMPT_COMMAND='set_prompt'
 
-
-# Install fzf
-if [ ! -d "$HOME/.fzf" ]; then
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    $HOME/.fzf/install
-fi
+function update_bashrc() {
+    # Install fzf
+    if [ ! -d "$HOME/.fzf" ]; then
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+        $HOME/.fzf/install
+    fi
+    # Update dotfiles
+    if [[ -d $HOME/.dotfiles ]]; then
+        git --git-dir=$HOME/.dotfiles/.git pull origin master
+    fi
+}
 
 # Find best finder for fzf
 
@@ -205,7 +210,3 @@ for idx in $(seq 0 $((${#SEARCH_BINS[@]} - 1))); do
     fi
 done
 
-# Update dotfiles
-if [[ -d $HOME/.dotfiles ]]; then
-    git --git-dir=$HOME/.dotfiles/.git pull origin master
-fi
