@@ -187,6 +187,9 @@ function update_bashrc() {
     if [ ! -d "$HOME/.fzf" ]; then
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
         $HOME/.fzf/install
+
+        source /usr/share/fzf/key-bindings.bash
+        source /usr/share/fzf/completion.bash
     fi
     # Update dotfiles
     if [[ -d $HOME/.dotfiles ]]; then
