@@ -213,3 +213,5 @@ for idx in $(seq 0 $((${#SEARCH_BINS[@]} - 1))); do
     fi
 done
 
+# Ensure git editor uses vim
+export GIT_EDITOR=vim
