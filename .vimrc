@@ -1,4 +1,7 @@
 " Ensure that we are in modern vim mode, not backwards-compatible vi mode
+
+"~/.config/nvim/init.vim is nvim vimrc path
+
 set visualbell
 set nocompatible
 set backspace=indent,eol,start
@@ -17,6 +20,10 @@ endif
 
 
 call plug#begin('~/.local/share/nvim/plugged')
+
+" ---- Copilot
+Plug 'github/copilot.vim'
+let b:copilot_enabled = 0
 
 " ---- Varius navigation
 Plug 'scrooloose/nerdtree'
@@ -47,7 +54,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'Raimondi/delimitMate'
 
 " ------ Formatters/linters --------
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 Plug 'sbdchd/neoformat'
 
 
@@ -170,9 +177,9 @@ let g:LanguageClient_serverCommands = {
       \ 'python': ['pyls'],
       \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery"}']
 \ }
-
 let g:LanguageClient_autoStart = 1
-let g:LanguageClient_loadSettings = 0
+let g:LanguageClient_loadSettings = 1
+let g:LanguageClient_settingsPath = '~/.vim/settings.json'
 let g:LanguageClient_trace = 'verbose'
 let $RUST_BACKTRACE = 1
 let g:LanguageClient_loggingLevel = 'INFO'
@@ -190,10 +197,11 @@ nnoremap <silent> S :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " -------- ale ----------
 "" 'python': ['pyls', 'mypy'],
-let b:ale_linters = {
-    \ 'rust': ['rls', 'rustfmt'],
-    \ 'typescript': ['prettier', 'tslint'],
-    \ }
+" let b:ale_linters = {
+"     \ 'python': ['flake8'],
+"     \ 'rust': ['rls', 'rustfmt'],
+"     \ 'typescript': ['prettier', 'tslint'],
+"     \ }
 
 " -------- vim-tex --------------
 
