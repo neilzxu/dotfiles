@@ -42,6 +42,7 @@ Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
 Plug 'junegunn/fzf', {'build': './install --all' }
+set rtp+=~/.fzf
 Plug 'junegunn/fzf.vim'
 Plug 'eugen0329/vim-esearch'
 
@@ -70,6 +71,11 @@ if has('nvim')
       \ 'do': 'bash install.sh',
       \ }
 endif
+
+" ----------- R plugin
+Plug 'jalvesaq/Nvim-R'
+
+
 
 Plug 'rust-lang/rust.vim'
 
@@ -143,14 +149,14 @@ let g:esearch = {
 
 " ----- formatting and linting -----
 
-let g:neoformat_enabled_python=['yapf', 'docformatter']
+let g:neoformat_enabled_python=['yapf', 'docformatter --black']
+let g:neoformat_enabled_r=['styler']
 let g:neoformat_run_all_formatters = 1
 augroup fmt
     autocmd!
     autocmd BufWritePre *.py undojoin | Neoformat
-""    autocmd BufWritePre *.py :call ale#Lint()
     autocmd BufWritePre *.rs undojoin | Neoformat
-    "autocmd BufWritePre *.rs :call ale#Lint()
+    autocmd BufWritePre *.{r,R} undojoin | Neoformat
 augroup END
 
 let g:python3_host_prog = system('printf $(which python3)')
@@ -175,7 +181,8 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
       \ 'python': ['pyls'],
-      \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery"}']
+      \ 'cpp': ['cquery', '--language-server', '--log-file=/tmp/cq.log', '--init={"cacheDirectory":"/tmp/cquery"}'],
+      \ 'r': ['R', '--slave', '-e', 'languageserver::run()']
 \ }
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_loadSettings = 1
@@ -197,11 +204,11 @@ nnoremap <silent> S :call LanguageClient#textDocument_documentSymbol()<CR>
 
 " -------- ale ----------
 "" 'python': ['pyls', 'mypy'],
-" let b:ale_linters = {
-"     \ 'python': ['flake8'],
-"     \ 'rust': ['rls', 'rustfmt'],
-"     \ 'typescript': ['prettier', 'tslint'],
-"     \ }
+let b:ale_linters = {
+    \ 'python': ['flake8'],
+    \ 'rust': ['rls', 'rustfmt'],
+    \ 'typescript': ['prettier', 'tslint'],
+    \ }
 
 " -------- vim-tex --------------
 
@@ -227,6 +234,16 @@ let g:pandoc#folding#fastfolds = 1
 " Automatically swithces working directory to directory of opened file for
 " opandoc files
 "" autocmd FileType pandoc :lchdir %:p:h
+" ------------------ R settrings
+let R_auto_start = 1
+let R_assign = 0
+
+"" R output is highlighted with current colorscheme
+let g:rout_follow_colorscheme = 1
+"" R commands in R output are highlighted
+let g:Rout_more_colors = 1
+
+
 
 set t_ut=
 " Tmux redraw
