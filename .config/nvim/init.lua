@@ -1,4 +1,5 @@
-local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
+local current_file_dir = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+local vimrc = current_file_dir .. "/vimrc.vim"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
