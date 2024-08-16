@@ -25,9 +25,29 @@ return {
           replace = false,
         }, dingllm.make_azure_openai_spec_curl_args, dingllm.handle_openai_spec_data)
       end
+
+      local function azure_openai_4_replace()
+        dingllm.invoke_llm_and_stream_into_editor({
+          url_name = 'AZURE_OPENAI_API_BACKEND_2',
+          api_key_name = 'AZURE_OPENAI_API_KEY',
+          system_prompt = system_prompt,
+          replace = true,
+        }, dingllm.make_azure_openai_spec_curl_args, dingllm.handle_openai_spec_data)
+      end
+
+      local function azure_openai_4_help()
+        dingllm.invoke_llm_and_stream_into_editor({
+          url_name = 'AZURE_OPENAI_API_BACKEND_2',
+          api_key_name = 'AZURE_OPENAI_API_KEY',
+          system_prompt = helpful_prompt,
+          replace = false,
+        }, dingllm.make_azure_openai_spec_curl_args, dingllm.handle_openai_spec_data)
+      end
       -- Keymaps
-      vim.keymap.set({ 'n', 'v' }, ',l', azure_openai_replace, { desc = 'llm azure_openai' })
-      vim.keymap.set({ 'n', 'v' }, ',L', azure_openai_help, { desc = 'llm azure_openai_help' })
+      vim.keymap.set({ 'n', 'v' }, ',l', azure_openai_replace, { desc = 'llm azure_openai gpt4mini' })
+      vim.keymap.set({ 'n', 'v' }, ',L', azure_openai_help, { desc = 'llm azure_openai_help gpt4mini' })
+      vim.keymap.set({ 'n', 'v' }, ',g', azure_openai_4_replace, { desc = 'llm azure_openai gpt4' })
+      vim.keymap.set({ 'n', 'v' }, ',G', azure_openai_4_help, { desc = 'llm azure_openai_help gpt4' })
     end,
   },
 

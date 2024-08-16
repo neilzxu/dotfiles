@@ -1,0 +1,10 @@
+{
+  "LanguageClient-neovim": { "branch": "next", "commit": "cf6dd11baf62fb6ce18308e96c0ab43428b7c686" },
+  "Nvim-R": { "branch": "master", "commit": "285e0065a66ed6afee0b80aa116bac86b94f2161" },
+  "dingllm.nvim": { "branch": "master", "commit": "543912f57fd051db07cac9b593af8f43a733fca5" },
+  "fzf": { "branch": "master", "commit": "387c6ef664688582ca1be950e2fe260699aa8862" },
+  "fzf.vim": { "branch": "master", "commit": "6f28c8c7bb551161a0315a76488522204f39c1f4" },
+  "lazy.nvim": { "branch": "main", "commit": "077102c5bfc578693f12377846d427f49bc50076" },
+  "neoformat": { "branch": "master", "commit": "b3b38589b39038dc12c2f5a59a828ed43439363a" },
+  "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" }
+}

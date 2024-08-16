@@ -56,24 +56,24 @@ Plug 'Raimondi/delimitMate'
 
 " ------ Formatters/linters --------
 " Plug 'w0rp/ale'
-Plug 'sbdchd/neoformat'
+"Plug 'sbdchd/neoformat'
 
 
 " ----- Python plugins --------------
 
-Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
+"Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
 Plug 'davidhalter/jedi'
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'deoplete-plugins/deoplete-jedi'
-  Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
+"  Plug 'autozimu/LanguageClient-neovim', {
+"      \ 'branch': 'next',
+"      \ 'do': 'bash install.sh',
+"      \ }
 endif
 
 " ----------- R plugin
-Plug 'jalvesaq/Nvim-R'
+"Plug 'jalvesaq/Nvim-R'
 
 
 
