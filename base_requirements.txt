@@ -2,3 +2,4 @@ neovim
 python-language-server[yapf,ropes,pyflakes,mccabe]
 docformatter
 pipdeptree
+jedi

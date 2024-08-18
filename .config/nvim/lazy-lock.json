@@ -1,10 +1,17 @@
 {
   "LanguageClient-neovim": { "branch": "next", "commit": "cf6dd11baf62fb6ce18308e96c0ab43428b7c686" },
-  "Nvim-R": { "branch": "master", "commit": "285e0065a66ed6afee0b80aa116bac86b94f2161" },
+  "Nvim-R": { "branch": "master", "commit": "4a4c8df9f757e9c25b0ab3426df511664d4b337a" },
+  "ale": { "branch": "master", "commit": "954682108d21b412561fb32e3fa766c7ee539984" },
+  "deoplete-jedi": { "branch": "master", "commit": "4a13930764f3fbda1c06d7312d8ce2ff595d3274" },
+  "deoplete.nvim": { "branch": "master", "commit": "e5a47d4a2f0b2b6f568e708163e2354097e611c6" },
   "dingllm.nvim": { "branch": "master", "commit": "543912f57fd051db07cac9b593af8f43a733fca5" },
-  "fzf": { "branch": "master", "commit": "387c6ef664688582ca1be950e2fe260699aa8862" },
+  "fzf": { "branch": "master", "commit": "ee5302fb2d760d44534ba2756e0cb764191d3e38" },
   "fzf.vim": { "branch": "master", "commit": "6f28c8c7bb551161a0315a76488522204f39c1f4" },
+  "jedi": { "branch": "master", "commit": "91ffdead3291263a356a66e40c7e82cfa431107f" },
   "lazy.nvim": { "branch": "main", "commit": "077102c5bfc578693f12377846d427f49bc50076" },
   "neoformat": { "branch": "master", "commit": "b3b38589b39038dc12c2f5a59a828ed43439363a" },
-  "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" }
+  "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
+  "vim-pandoc": { "branch": "master", "commit": "bd11902651edc18076f90ed291581d785be52311" },
+  "vim-pandoc-syntax": { "branch": "master", "commit": "16939cda184ff555938cc895cc62477c172997f9" },
+  "vimtex": { "branch": "master", "commit": "00c23ab836dceeffadc05d0c4f2ceca1e02810a4" }
 }

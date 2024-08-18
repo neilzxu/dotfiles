@@ -34,16 +34,16 @@ Plug 'vimwiki/vimwiki'
 Plug 'Konfekt/FastFold'
 
 " ----- Latex
-Plug 'lervag/vimtex'
+"Plug 'lervag/vimtex'
 
 " ---- pandoc
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+"Plug 'vim-pandoc/vim-pandoc'
+"Plug 'vim-pandoc/vim-pandoc-syntax'
 
 
-Plug 'junegunn/fzf', {'build': './install --all' }
-set rtp+=~/.fzf
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', {'build': './install --all' }
+"set rtp+=~/.fzf
+"Plug 'junegunn/fzf.vim'
 Plug 'eugen0329/vim-esearch'
 
 
@@ -62,15 +62,15 @@ Plug 'Raimondi/delimitMate'
 " ----- Python plugins --------------
 
 "Plug 'google/yapf', { 'rtp': 'plugins/vim', 'for': 'python' }
-Plug 'davidhalter/jedi'
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'deoplete-plugins/deoplete-jedi'
+"Plug 'davidhalter/jedi'
+"if has('nvim')
+"  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"  Plug 'deoplete-plugins/deoplete-jedi'
 "  Plug 'autozimu/LanguageClient-neovim', {
 "      \ 'branch': 'next',
 "      \ 'do': 'bash install.sh',
 "      \ }
-endif
+"endif
 
 " ----------- R plugin
 "Plug 'jalvesaq/Nvim-R'
@@ -158,9 +158,7 @@ augroup fmt
     autocmd BufWritePre *.rs undojoin | Neoformat
     autocmd BufWritePre *.{r,R} undojoin | Neoformat
 augroup END
-
-let g:python3_host_prog = system('printf $(which python3)')
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 
 set completeopt-=preview
 
@@ -222,14 +220,17 @@ let g:pandoc#biblio#sources = 'c'
 let g:pandoc_command_autoexec_command = "Pandoc! html"
 let g:pandoc#biblio#use_bibtool = 1
 " Deoplete integration
-if has('nvim')
-    call deoplete#custom#var('omni', 'input_patterns', {
-              \ 'tex': g:vimtex#re#deoplete
-              \})
-    call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'pandoc': '@'
-      \})
-endif
+"if has('nvim')
+"    call deoplete#custom#var('omni', 'input_patterns', {
+"              \ 'tex': g:vimtex#re#deoplete
+"              \})
+"   Translate this to lazynvim lua config
+"    call deoplete#custom#var('omni', 'input_patterns', {
+"      \ 'pandoc': '@'
+"      \})
+"
+"
+"endif
 let g:pandoc#folding#fastfolds = 1
 " Automatically swithces working directory to directory of opened file for
 " opandoc files
