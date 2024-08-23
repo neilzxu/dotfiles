@@ -13,5 +13,6 @@
   "plenary.nvim": { "branch": "master", "commit": "a3e3bc82a3f95c5ed0d7201546d5d2c19b20d683" },
   "vim-pandoc": { "branch": "master", "commit": "bd11902651edc18076f90ed291581d785be52311" },
   "vim-pandoc-syntax": { "branch": "master", "commit": "16939cda184ff555938cc895cc62477c172997f9" },
-  "vimtex": { "branch": "master", "commit": "00c23ab836dceeffadc05d0c4f2ceca1e02810a4" }
+  "vimtex": { "branch": "master", "commit": "00c23ab836dceeffadc05d0c4f2ceca1e02810a4" },
+  "yapf": { "branch": "main", "commit": "1afbf7112ae61a467276c9401b3c113e6f676d0f" }
 }

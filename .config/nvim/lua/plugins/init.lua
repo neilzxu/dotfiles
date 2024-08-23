@@ -11,10 +11,13 @@ return {
   },
   { 'autozimu/LanguageClient-neovim',
     branch = 'next',
-    build = 'bash install.sh'
+    build = 'bash install.sh',
+    ft = { "python", "r", "rust" }
   },
-  { 'w0rp/ale' },
-  { 'davidhalter/jedi' },
+  --{ 'w0rp/ale' },
+  { 'davidhalter/jedi',
+    ft = { "python" }
+  },
   { 'Shougo/deoplete.nvim',
     build = ':UpdateRemotePlugins',
     init = function()
@@ -30,8 +33,12 @@ return {
       --})
     end,
   },
-  { 'deoplete-plugins/deoplete-jedi' },
-  { 'sbdchd/neoformat' },
+  { 'deoplete-plugins/deoplete-jedi',
+    ft = { "python" }
+  },
+  { 'sbdchd/neoformat',
+    ft = { "python", "r", "rust" }
+  },
   { 'google/yapf',
     -- add the runtime path configuration
     config = function()
