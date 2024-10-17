@@ -96,7 +96,7 @@ return {
   { 'junegunn/fzf.vim', dependencies = { 'junegunn/fzf' } },
   { 'lervag/vimtex',
     lazy = false,
-    ft = { "tex" }
+    priority = 100,
   },
   { 'vim-pandoc/vim-pandoc' },
   { 'vim-pandoc/vim-pandoc-syntax' },
@@ -143,5 +143,41 @@ return {
       -- additional configuration if needed
     end,
     ft = { "python" }
-  }
+  },
+  { 'scrooloose/nerdtree' }, -- SAFE
+  { 'Xuyuanp/nerdtree-git-plugin' },
+  { 'jistr/vim-nerdtree-tabs' },
+  { 'scrooloose/nerdcommenter' },
+  { 'vimwiki/vimwiki' },
+  { 'Konfekt/FastFold' },
+  { 'eugen0329/vim-esearch' },
+  { 'airblade/vim-gitgutter' },
+  { 'tpope/vim-fugitive' },
+  { 'Raimondi/delimitMate' },
+  { 'rust-lang/rust.vim' },
+  { 'nvim-lualine/lualine.nvim',
+     dependencies = { 'nvim-tree/nvim-web-devicons' },
+     lazy = false,
+     priority = 1000,
+     init = function()
+         require("lualine").setup({})
+     end
+  },
+  { 'Mofiqul/dracula.nvim',
+     lazy = false,
+     priority = 1000,
+     init = function()
+       require("dracula").setup({
+         -- Add your preferred options here
+         italic_comment = true, -- Italicize comments
+         show_end_of_buffer = true, -- Show the '~' characters after the end of buffers
+         lualine_bg_color = "#44475a", -- Set the lualine background color
+         -- You can add more options as needed
+       })
+
+       -- Set the colorscheme
+       vim.cmd[[colorscheme dracula]]
+     end
+  },
+  -- { 'vim-airline/vim-airline' },
 }

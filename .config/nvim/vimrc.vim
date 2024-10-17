@@ -8,30 +8,30 @@ set backspace=indent,eol,start
 
 
 
-if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-elseif has('nvim') && empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-
-call plug#begin('~/.local/share/nvim/plugged')
+"if !has('nvim') && empty(glob('~/.vim/autoload/plug.vim'))
+"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"elseif has('nvim') && empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+"  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
+"
+"
+"call plug#begin('~/.local/share/nvim/plugged')
 
 " ---- Copilot
-Plug 'github/copilot.vim'
-let b:copilot_enabled = 0
+"Plug 'github/copilot.vim'
+"let b:copilot_enabled = 0
 
 " ---- Varius navigation
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'vimwiki/vimwiki'
-Plug 'Konfekt/FastFold'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'vimwiki/vimwiki'
+"Plug 'Konfekt/FastFold'
 
 " ----- Latex
 "Plug 'lervag/vimtex'
@@ -44,15 +44,15 @@ Plug 'Konfekt/FastFold'
 "Plug 'junegunn/fzf', {'build': './install --all' }
 "set rtp+=~/.fzf
 "Plug 'junegunn/fzf.vim'
-Plug 'eugen0329/vim-esearch'
-
-
-" ----- Working with Git ----------------------------------------------
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-
-" ----- Other text editing features -----------------------------------
-Plug 'Raimondi/delimitMate'
+"Plug 'eugen0329/vim-esearch'
+"
+"
+"" ----- Working with Git ----------------------------------------------
+"Plug 'airblade/vim-gitgutter'
+"Plug 'tpope/vim-fugitive'
+"
+"" ----- Other text editing features -----------------------------------
+"Plug 'Raimondi/delimitMate'
 
 " ------ Formatters/linters --------
 " Plug 'w0rp/ale'
@@ -77,13 +77,13 @@ Plug 'Raimondi/delimitMate'
 
 
 
-Plug 'rust-lang/rust.vim'
-
-" ----- Cosmetics for vim ------
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'vim-airline/vim-airline'
-
-call plug#end()
+"Plug 'rust-lang/rust.vim'
+"
+"" ----- Cosmetics for vim ------
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'vim-airline/vim-airline'
+"
+"call plug#end()
 
 
 set ruler
