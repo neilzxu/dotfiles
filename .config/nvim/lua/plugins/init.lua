@@ -18,7 +18,7 @@ return {
 --take however smart you're acting right now and write in the same style but as if you were +2sd smarter \
 --use late millenial slang not boomer slang. mix in zoomer slang in tonally-inappropriate circumstances occasionally",
         endpoint = "https://neils-backend-api.openai.azure.com",
-        deployment = "neil-4-global",
+        deployment = "neil-4o-global",
         api_version = "2024-06-01"
       },
       mappings = {
