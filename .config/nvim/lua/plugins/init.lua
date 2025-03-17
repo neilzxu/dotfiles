@@ -19,7 +19,7 @@ return {
 --use late millenial slang not boomer slang. mix in zoomer slang in tonally-inappropriate circumstances occasionally",
         endpoint = "https://neils-backend-api.openai.azure.com",
         deployment = "neil-4o-global",
-        api_version = "2024-06-01"
+        api_version = "2024-08-01-preview"
       },
       mappings = {
         ask = ",ava",
@@ -109,9 +109,10 @@ return {
     ft = { "python", "r", "rust" }
   },
   --{ 'w0rp/ale' },
-  { 'davidhalter/jedi',
-    ft = { "python" }
-  },
+  --{ 'davidhalter/jedi',
+  --  lazy = false,
+  --  ft = { "python" }
+  --},
   { 'Shougo/deoplete.nvim',
     build = ':UpdateRemotePlugins',
     init = function()
@@ -127,23 +128,25 @@ return {
       --})
     end,
   },
-  { 'deoplete-plugins/deoplete-jedi',
-    ft = { "python" }
-  },
+  --{ 'deoplete-plugins/deoplete-jedi',
+  --  lazy = false,
+  --  ft = { "python" }
+  --},
   { 'sbdchd/neoformat',
-    ft = { "python", "r", "rust" }
+  --  ft = { "python", "r", "rust" }
+    ft = { "r", "rust" }
   },
-  { 'google/yapf',
-    -- add the runtime path configuration
-    config = function()
-      vim.cmd [[
-        set runtimepath+=path/to/plugins/vim
-        filetype plugin indent on
-      ]]
-      -- additional configuration if needed
-    end,
-    ft = { "python" }
-  },
+  --{ 'google/yapf',
+  --  -- add the runtime path configuration
+  --  config = function()
+  --    vim.cmd [[
+  --      set runtimepath+=path/to/plugins/vim
+  --      filetype plugin indent on
+  --    ]]
+  --    -- additional configuration if needed
+  --  end,
+  --  ft = { "python" }
+  --},
   { 'scrooloose/nerdtree' }, -- SAFE
   { 'Xuyuanp/nerdtree-git-plugin' },
   { 'jistr/vim-nerdtree-tabs' },
@@ -178,6 +181,46 @@ return {
        -- Set the colorscheme
        vim.cmd[[colorscheme dracula]]
      end
+  },
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    config = function()
+      require("mason").setup()
+    end
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup({
+        ensure_installed = { "ruff" }
+      })
+    end
+  },
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("lspconfig").ruff.setup({
+        on_attach = function(client, bufnr)
+          -- Enable format on save
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            callback = function()
+              vim.lsp.buf.format()
+            end,
+          })
+
+          -- Basic keymaps
+          local opts = { buffer = bufnr }
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
+        end,
+        settings = {
+          args = {"--ignore=I001"}
+        }
+      })
+    end
   },
   -- { 'vim-airline/vim-airline' },
 }

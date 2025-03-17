@@ -154,7 +154,6 @@ let g:neoformat_enabled_r=['styler']
 let g:neoformat_run_all_formatters = 1
 augroup fmt
     autocmd!
-    autocmd BufWritePre *.py undojoin | Neoformat
     autocmd BufWritePre *.rs undojoin | Neoformat
     autocmd BufWritePre *.{r,R} undojoin | Neoformat
 augroup END
