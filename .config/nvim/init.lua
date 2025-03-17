@@ -29,3 +29,18 @@ require("lazy").setup("plugins")
 local vimrc = vim.fn.stdpath("config") .. "/vimrc.vim"
 vim.cmd.source(vimrc)
 
+
+local function file_exists(name)
+    local f = io.open(name, "r")
+    if f then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
+local mac = vim.fn.stdpath("config") .. "/mac.vim"
+if file_exists(mac) then
+    vim.cmd.source(mac)
+end
